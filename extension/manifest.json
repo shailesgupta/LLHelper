@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "LLHelper — IGR Leave & License",
+  "version": "0.1.0",
+  "description": "Assisted autofill and fast typeahead for Maharashtra IGR Leave & License forms.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://igrmaharashtra.gov.in/*", "https://llhelper.vercel.app/*"],
+  "action": { "default_title": "LLHelper" },
+  "content_scripts": [{ "matches": ["https://igrmaharashtra.gov.in/*"], "js": ["content.js"], "run_at": "document_idle" }]
+}
