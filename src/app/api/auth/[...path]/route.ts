@@ -1,0 +1,9 @@
+import { auth } from "@/lib/auth-server";
+import { apiError } from "@/lib/http";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
+function unavailable() { return apiError(503, "auth_not_configured", "Authentication is not configured yet."); }
+export const GET = (request: Request) => auth ? auth.handler()(request) : unavailable();
+export const POST = (request: Request) => auth ? auth.handler()(request) : unavailable();
