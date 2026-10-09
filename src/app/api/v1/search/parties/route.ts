@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     const rows = await sql.transaction([
       sql`select set_config('app.user_id', ${auth.userId}, true)`,
       sql`select p.id, coalesce(nullif(p.name, ''), nullif(p.pan_name, ''), p.aadhaar_name) as display_name,
-                 p.party_category, p.mobile, p.pin, p.record_version,
+                 p.party_category, case when p.mobile is null or p.mobile = '' then null else '••••••' || right(regexp_replace(p.mobile, '[^0-9]', '', 'g'), 4) end as mobile, p.pin, p.record_version,
                  case
                    when upper(coalesce(p.pan, '')) = upper(${q}) then 0
                    when ${digits.length >= 10} and regexp_replace(coalesce(p.aadhaar, ''), '[^0-9]', '', 'g') = ${digits} then 1
