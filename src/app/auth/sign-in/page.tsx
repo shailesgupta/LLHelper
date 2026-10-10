@@ -20,7 +20,7 @@ export default function SignInPage() {
     try {
       const result = mode === "sign-in"
         ? await authClient.signIn.email({ email: email.trim(), password })
-        : await authClient.signUp.email({ email: email.trim(), password, name: name.trim() || undefined });
+        : await authClient.signUp.email({ email: email.trim(), password, name: name.trim() || email.trim() });
       if (result.error) {
         setStatus(result.error.message || "Authentication failed. Check your details and try again.");
         return;
